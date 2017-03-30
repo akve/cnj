@@ -1,0 +1,22 @@
+{
+
+  "id": 1,
+  "title":"Test task 1",
+  "assignee":"pas",
+  "status":"open",
+  "project":1,
+  "messages": [
+    {
+      "id": 1,
+      "from": "pas",
+      "message":"Test message",
+      "sent":"2017-03-30T20:51:15.433Z"
+    },
+    {
+      "id": 2,
+      "from": "pas",
+      "message":"Test message2",
+      "sent":"2017-03-30T21:51:15.433Z"
+    }
+  ]
+}
