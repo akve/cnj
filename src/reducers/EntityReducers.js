@@ -67,7 +67,7 @@ function entity(state = initialState, action) {
         case ENTITY_SUCCESS:
             entity = _.omit(action.entity, 'silent');
 
-            const response = _.isPlainObject(action.response) ? [] : action.response;
+            const response = action.response;
 
             entityState.isFetching = false;
             entityState.errorMessage = '';

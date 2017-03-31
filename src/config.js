@@ -1,4 +1,4 @@
-const __DEV__ = true;
+const __DEV__ = false;
 
 export const dev = {
     dev: true,

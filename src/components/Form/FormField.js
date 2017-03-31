@@ -37,9 +37,7 @@ export default class FormField extends Component {
         }
     }
 
-    render() {
-        const { type} = this.props;
-
+    chooseInput(type) {
         switch (type) {
             case 'checkbox':
                 return this.renderCheckbox();
@@ -52,11 +50,29 @@ export default class FormField extends Component {
             default:
                 return this.renderText();
         }
+    }
 
+    render() {
+        const { label, type, labelClassName, className, name, required } = this.props;
+
+        return (
+            <div className={`form-group form-field ${className}`}>
+                {label &&
+                <label
+                    htmlFor={name}
+                    className={labelClassName + (required ? ' required-field':'')}
+                >
+                    {label}
+                </label>
+                }
+                {this.chooseInput(type)}
+            </div>
+        );
     }
 
     renderText() {
         return <TextField
+            id={this.props.name}
             {..._.omit(this.props, 'className', 'labelInside')}
         />
     }
@@ -65,10 +81,11 @@ export default class FormField extends Component {
         return <RadioButton
             onCheck={this.props.onChange}
             {..._.omit(this.props, 'className', 'onChange')}
-          />
+        />
     }
 
     renderCheckbox() {
+        const { type, value } = this.props;
         const dynamicProps = {};
 
         Object.assign(dynamicProps, {
@@ -88,96 +105,75 @@ export default class FormField extends Component {
         />
     }
 
-    renderDefaultInput() {
-        const { type, value } = this.props;
-        const dynamicProps = {};
-
-
-        if (type === 'checkbox') {
-            Object.assign(dynamicProps, {
-				onCheck: this.props.onChange ? this.props.onChange : this.handleCheckboxChange,
-                //onChange: this.handleCheckboxChange,
-                checked: this.props.checked === undefined ? this.state.value : this.props.checked
-            });
-
-            return <Checkbox
-                {...dynamicProps}
-                {..._.omit(this.props, 'className', 'value')}
-
-            />
-        } else {
-            const val = _.isNull(value) ? '' : value;
-
-            Object.assign(dynamicProps, {
-                value: val
-            });
-        }
-
-        return (
-            <input
-                className="form-control"
-               {..._.omit(this.props, 'label', 'className', 'value', 'labelClassName')}
-               {...dynamicProps}
-           />
-        );
-    }
-
     renderSelect() {
         const {
             name: id,
             value,
+            onChange,
             data,
             renderItem,
             disabled,
+            required,
             defaultTitle,
             autoComplete,
             valueField,
             textField,
-            floatingLabelText
-
+            floatingLabelText,
+            filter
         } = this.props;
-        const customProps = { id, disabled, value, floatingLabelText };
+        //if (this.props.name == "lookup-warehouse" ) debugger
+        const customProps = { id, disabled, value : _.isObject(value) ? value[valueField] : value, floatingLabelText, hintStyle:{'color':'#FF0000'} };
 
         if (defaultTitle) {
             customProps.hintText = defaultTitle;
         }
 
+
         return autoComplete
             ? this.renderAutoComplete()
             : <SelectField
-                onChange={this.handleSelectChange}
-                {...customProps}
-            >
-                {data && data.map((item, index) => {
-                    let _value;
-                    let _label;
+            onChange={this.handleSelectChange}
+            {...customProps}
+        >
+            {data && data.map((item, index) => {
+                let _value;
+                let _label;
 
-                    if (_.isPlainObject(item)) {
-                        _value = valueField ? item[valueField] : item;
-                        _label = textField ? item[textField] : item;
-                    } else {
-                        _value = _label = item;
-                    }
+                if (_.isObject(item)) {
+                    _value = valueField ? item[valueField] : item;
+                    _label = textField ? item[textField] : item;
+                } else {
+                    _value = _label = item;
+                }
 
-                    return <MenuItem
-                        value={_value}
-                        key={index}
-                        primaryText={!renderItem && _label}
-                        children={renderItem && renderItem(item)}
-                    />
-                })}
-            </SelectField>
+                return <MenuItem
+                    value={_value}
+                    key={index}
+                    primaryText={renderItem? null :  _label}
+                    children={renderItem ? renderItem(item) : null}
+                />
+            })}
+        </SelectField>
     }
 
     renderAutoComplete() {
         const {
+            name: id,
+            value,
+            onChange,
             data,
-
+            disabled,
+            defaultTitle,
+            autoComplete,
+            defaultValue,
             valueField,
             textField,
             filter
         } = this.props;
-        const containsFilter = (queryText, key) => key.includes(queryText)
+        const containsFilter = (queryText, key) => {
+            console.log(queryText, key);
+            return key.includes(queryText)
+        }
         const modFilter = filter === 'contains' ? containsFilter : filter
         // const mappedData = data.map(item => )
         const dataSourceConfig = {
@@ -189,10 +185,12 @@ export default class FormField extends Component {
             'filter',
             'valueField',
             'textField',
-            'autoComplete'
+            'autoComplete',
+            'defaultValue'
         ]
 
         return <AutoComplete
+            searchText={defaultValue + ''}
             dataSource={data}
             filter={modFilter}
             dataSourceConfig={dataSourceConfig}

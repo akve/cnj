@@ -39,9 +39,9 @@ app.get('/api/jwt',
 app.get('/api/projects',
     function (req, res) {
         fs.readFile( 'api/projects.json', 'utf-8', function(e, content){
-            res.send({
-                content: JSON.parse(content)
-            });
+            res.send(
+                JSON.parse(content)
+            );
         })
     }
 );
@@ -49,9 +49,9 @@ app.get('/api/projects',
 app.get('/api/project/:id',
     function (req, res) {
         fs.readFile( 'api/project.json', 'utf-8', function(e, content){
-            res.send({
-                content: JSON.parse(content)
-            });
+            res.send(
+                JSON.parse(content)
+            );
         })
     }
 );
@@ -101,9 +101,7 @@ app.get('/api/tasks',
 app.get('/api/task/:id',
     function (req, res) {
         fs.readFile( 'api/task.json', 'utf-8', function(e, content){
-            res.send({
-                content: JSON.parse(content)
-            });
+            res.send(JSON.parse(content));
         })
     }
 );

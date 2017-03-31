@@ -16,10 +16,10 @@ class RightMenu extends Component {
         isMenuConfigs: PropTypes.bool
     }
 
-    static get contextTypes() {
-        return {
-            router: React.PropTypes.object.isRequired,
-        };
+
+    static contextTypes = {
+        router: React.PropTypes.object.isRequired
+        //location: React.PropTypes.object.isRequired
     }
 
     state = { menu: [] }
@@ -32,10 +32,15 @@ class RightMenu extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+
     }
 
     handleLogout = () => {
         this.props.logoutUser(this.context.router);
+    }
+
+    handleUrl = (url)=> {
+        this.context.router.push(url);
     }
 
     render() {
@@ -65,11 +70,26 @@ class RightMenu extends Component {
          />*/
         const links = [
             <OverlayTrigger placement="right" overlay={this.renderTooltip("Tasks")} key={1}>
-                <NavItem eventKey={3} onClick={() => this.handleLogout()} key={3}>
+                <NavItem eventKey={3} onClick={() => this.handleUrl('/client/tasks')} key={1}>
 
-                        <i className="glyphicon glyphicon-tasks"></i>
+                        <i className="glyphicon glyphicon-check right-menu-item"></i>
 
                 </NavItem>
+
+            </OverlayTrigger>,
+            <OverlayTrigger placement="right" overlay={this.renderTooltip("Websites")} key={2}>
+                <NavItem eventKey={3} onClick={() => this.handleUrl('/client/projects')} key={2}>
+
+                <i className="glyphicon glyphicon-briefcase right-menu-item"></i>
+
+                </NavItem>
+            </OverlayTrigger>,
+            <OverlayTrigger placement="right" overlay={this.renderTooltip("Balance")} key={3}>
+            <NavItem eventKey={3} onClick={() => this.handleUrl('/client/balance')} key={3}>
+
+            <i className="glyphicon glyphicon-piggy-bank right-menu-item"></i>
+
+            </NavItem>
             </OverlayTrigger>
         ];
 

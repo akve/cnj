@@ -243,3 +243,32 @@ Resizer.disabled:hover {
 .SplitPane {
     position: inherit !important;
 }
+
+/**/
+.message-list{
+    height: calc(100% - 150px);
+    /* Firefox */
+    height: -moz-calc(100% - 150px);
+    /* WebKit */
+    height: -webkit-calc(100% - 150px);
+    /* Opera */
+    height: -o-calc(100% - 150px);
+    overflow: auto;
+}
+.message-list-internal {
+}
+.new-message {
+    height:100px;
+    position:fixed;
+    bottom:0px;
+}
+
+.right-menu-item {
+    font-size:20px;
+}
+
+.filterPanel {
+    margin:5px;
+    padding:5px;
+
+}
