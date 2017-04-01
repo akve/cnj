@@ -246,21 +246,22 @@ Resizer.disabled:hover {
 
 /**/
 .message-list{
-    height: calc(100% - 150px);
+    height: calc(100% - 180px);
     /* Firefox */
-    height: -moz-calc(100% - 150px);
+    height: -moz-calc(100% - 180px);
     /* WebKit */
-    height: -webkit-calc(100% - 150px);
+    height: -webkit-calc(100% - 180px);
     /* Opera */
-    height: -o-calc(100% - 150px);
+    height: -o-calc(100% - 180px);
     overflow: auto;
 }
 .message-list-internal {
 }
 .new-message {
-    height:100px;
-    position:fixed;
+    height:180px;
+    position:relative;
     bottom:0px;
+    border-top:1px solid #e7e7e7;
 }
 
 .right-menu-item {
@@ -271,4 +272,25 @@ Resizer.disabled:hover {
     margin:5px;
     padding:5px;
 
+}
+
+.filter-field {
+    margin-right:10px;
+}
+
+.current-task {
+    background: #8aa4be !important;
+    color: #bbae09;
+}
+
+.icon-button-send {
+    min-width: 30px !important;
+}
+.icon-button-text {
+    line-height: 36px;
+    font-size: 20px;
+}
+
+.plain-view-fields{
+    list-style-type:none;
 }

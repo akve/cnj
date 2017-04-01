@@ -7,6 +7,8 @@ import './App.css';
 import {createIronStore} from './store'
 import AppContainer from './containers/AppContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 injectTapEventPlugin();
 
@@ -27,9 +29,13 @@ class App extends Component {
         }
     };
 
+    theme = getMuiTheme(lightBaseTheme)
+
+
+
   render() {
     return (
-        <MuiThemeProvider>
+        <MuiThemeProvider theme={this.theme}>
             <AppContainer store={store}  />
         </MuiThemeProvider>
     );

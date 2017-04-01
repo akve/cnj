@@ -16,9 +16,9 @@ export function callApi({ endpoint, method, body, headers}) { // { endpoint, aut
         }
     }
 
-    if (config.dev) {
+    //if (config.dev) {
         headers["Content-Type"] = "application/json";
-    }
+    //}
 
     const cfg = {
         method,

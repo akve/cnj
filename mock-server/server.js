@@ -73,7 +73,7 @@ app.post('/api/project',
         fs.readFile( 'api/projects.json', 'utf-8', function(e, content){
 
             content = JSON.parse(content);
-            var newid = content[content.length].id + 1;
+            var newid = content[content.length-1].id + 1;
             var o = req.body;
             o.id = newid;
             content.push(o);
@@ -118,17 +118,16 @@ app.put('/api/task/:id',
 );
 
 
-app.post('/api/task',
+app.post('/api/message/:id',
     function (req, res) {
-        fs.readFile( 'api/tasks.json', 'utf-8', function(e, content){
-
+        fs.readFile( 'api/task.json', 'utf-8', function(e, content){
             content = JSON.parse(content);
-            var newid = content[content.length].id + 1;
+            var newid = content.messages[content.messages.length-1].id + 1;
             var o = req.body;
             o.id = newid;
-            content.push(o);
+            content.messages.push(o);
 
-            fs.writeFile('api/tasks.json', JSON.stringify(JSON.parse(content), null, 4), function(err, content2){
+            fs.writeFile('api/task.json', JSON.stringify(content, null, 4), function(err, content2){
                 if (err) { return console.error(err); }
 
                 res.send(content2);

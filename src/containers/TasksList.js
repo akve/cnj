@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { loadEntity, loadEntityCount } from '../actions/entity';
 
-import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import TaskList from '../components/Task/TaskList'
+
+//import {List, ListItem} from 'material-ui/List';
+//import Divider from 'material-ui/Divider';
 //import Subheader from 'material-ui/Subheader';
-import Avatar from 'material-ui/Avatar';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+//import Avatar from 'material-ui/Avatar';
+//import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 //import IconButton from 'material-ui/IconButton';
 //import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 //import IconMenu from 'material-ui/IconMenu';
 //import MenuItem from 'material-ui/MenuItem';
-import Button from '../components/Button/Button'
-import FormField from '../components/Form/FormField'
+//import Button from '../components/Button/Button'
+//import FormField from '../components/Form/FormField'
 
 /*const iconButtonElement = (
     <IconButton
@@ -44,15 +46,8 @@ class TasksList extends Component {
 
 
 
-    getInitialState() {
-        console.log("DEF")
-        return {filter:{}}
-    }
-
     init(){
         if (this.initted) return
-        this.setState({filter:{}})
-        console.log("!")
         if (!this.props.entity['project:list']) {
             this.props.loadEntity('list', 'project')
         }
@@ -61,16 +56,12 @@ class TasksList extends Component {
     }
     componentWillReceiveProps(newProps) {
         this.init()
-
     }
+
     componentDidMount(){
         this.init()
     }
 
-    handleOnClick(){
-        const url = `/client/tasks/1`;
-        this.context.router.push(url);
-    }
 
      /*ListExampleMessages = () => (
     <div >
@@ -211,105 +202,20 @@ class TasksList extends Component {
 );*/
 
     isShowingDetails(){
-        return this.props.location.pathname !== "/client/tasks"
+        return !(typeof this.props.params.id === "undefined")
     }
 
-    resolveProject(id) {
-        const project = _.find(this.props.entity['project:list'].result, {id:id})
-        return project? project['title'] : ''
-    }
 
-    handleOnFilter(){
 
-    }
-
-    handleFilterChange(change){
-        let filterChange = {filter:{}}
-        filterChange.filter[change.name] = change.value
-        this.setState(filterChange)
-        console.log(filterChange, this.state.filter)
-    }
-
-    filterProjects() {
-        let res = [{id:0,name:'All websites'}]
-        this.props.entity['project:list'].result.forEach((project)=>{
-            res.push({id:project.id, name: project.title})
-        })
-        return res
-    }
-
-    renderFilter(){
-        return (
-            <div className="filterPanel">
-                <div className="pull-left">
-                    <FormField
-                        name="filterByProject"
-                        floatingLabelText="Filter by website"
-                        type="select"
-                        valueField="id"
-                        textField="name"
-                        data={this.filterProjects()}
-                        value={this.state.filter.project}
-                        onChange={(val) => this.handleFilterChange(
-                            { value: val, name: 'project' }
-                        )}
-                    />
-                </div>
-                <div className="pull-right">
-                    <Button
-                        name="filter"
-                        primary={true}
-                        className={`btn-default`}
-                        onClick={this.handleOnFilter()}
-                        label="Filter"
-                    />
-                </div>
-                <div style={{clear:'both'}}></div>
-
-            </div>
-        )
-    }
-
-    renderList(){
-        const entity = this.props.entity && this.props.entity['task:list'] ? this.props.entity['task:list'].result : null
-        const projects = this.props.entity && this.props.entity['project:list'] ? this.props.entity['project:list'].result : null
-        if (!entity) return
-        if (!projects) return
-
-        return (
-            <div>
-                {this.renderFilter()}
-                <Divider/>
-                <List>
-                    {entity.map((item, index) => {
-                        return <ListItem
-                            leftAvatar={<Avatar src="images/ok-128.jpg" />}
-                            primaryText={item.title + ' | ' + this.resolveProject(item.project)}
-                            onClick={(e) => this.handleOnClick()}
-                            key={index}
-                            secondaryText={
-                                <p>
-                                    <span style={{color: darkBlack}}>Assigned to: {item.assignee}</span><br/>
-                                    <span style={{color: darkBlack}}>Status: {item.status}</span>
-                                </p>
-                            }
-                            secondaryTextLines={2}
-                        />
-                    })}
-
-                </List>
-            </div>
-        )
-    }
 
     render() {
-        console.log(this.props.location)
+        //console.log("TL", this.props)
         //var currentRouteName = this.context.router.getCurrentPathname();
         //console.log("ONRENDER in tasks", currentRouteName)
         return (
             <div className="fluid-container">
                 <div className={this.isShowingDetails() ? 'tasks-list tasks-list-half' : 'tasks-list'}>
-                    {this.renderList()}
+                    <TaskList taskId={this.props.params.id}/>
                 </div>
                 {this.props.children}
             </div>

@@ -1,22 +1,43 @@
 {
-
-  "id": 1,
-  "title":"Test task 1",
-  "assignee":"pas",
-  "status":"open",
-  "project":1,
-  "messages": [
-    {
-      "id": 1,
-      "from": "pas",
-      "message":"Test message",
-      "sent":"2017-03-30T20:51:15.433Z"
-    },
-    {
-      "id": 2,
-      "from": "pas",
-      "message":"Test message2",
-      "sent":"2017-03-30T21:51:15.433Z"
-    }
-  ]
+    "id": 1,
+    "title": "Test task 1",
+    "assignee": "pas",
+    "status": "inprogress",
+    "project": 1,
+    "lastupdate": "2017-03-30T20:51:15.433Z",
+    "messages": [
+        {
+            "id": 1,
+            "from": "pas",
+            "message": "Test message",
+            "sent": "2017-03-30T20:51:15.433Z"
+        },
+        {
+            "id": 2,
+            "from": "pas",
+            "message": "Test message2",
+            "sent": "2017-03-30T21:51:15.433Z"
+        },
+        {
+            "id": 3
+        },
+        {
+            "message": "test",
+            "from": "pas",
+            "sent": "2017-04-01T11:12:57.064Z",
+            "id": 4
+        },
+        {
+            "message": "test2",
+            "from": "pas",
+            "sent": "2017-04-01T11:14:00.205Z",
+            "id": 5
+        },
+        {
+            "message": "test3",
+            "from": "pas",
+            "sent": "2017-04-01T11:14:23.214Z",
+            "id": 6
+        }
+    ]
 }

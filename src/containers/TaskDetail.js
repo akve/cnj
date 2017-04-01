@@ -6,6 +6,7 @@ import { loadEntity, loadEntityCount } from '../actions/entity';
 import SplitPane from 'react-split-pane'
 import MessageList from '../components/Messages/MessageList'
 import NewMessage from '../components/Messages/NewMessage'
+import TaskView from '../components/Task/TaskView'
 
 class TaskDetail extends Component {
 
@@ -28,6 +29,10 @@ class TaskDetail extends Component {
         this.init()
     }
 
+    getTask(){
+        return this.props.entity['task:' + this.props.params.id] ? this.props.entity['task:' + this.props.params.id].result : null
+    }
+
     render() {
         return (
         <div className="task-detail-wrapper">
@@ -40,7 +45,9 @@ class TaskDetail extends Component {
                         <NewMessage id={this.props.params.id}/>
                     </div>
                 </div>
-                <div>Task details</div>
+                <div>
+                    <TaskView task={this.getTask()}/>
+                </div>
             </SplitPane>
         </div>
 

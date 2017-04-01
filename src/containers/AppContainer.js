@@ -27,7 +27,7 @@ class AppContainer extends Component {
     componentDidMount(){
         if (window.location.protocol === 'https:') {
             //TODO: workaround allows to make request from https to http-server
-            window.location.protocol === 'http:';
+            //window.location.protocol = 'http:';
         }
         this._notificationSystem = this.refs.notificationSystem;
     }

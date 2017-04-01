@@ -11,7 +11,7 @@ export default class Button extends Component {
     }
 
     render() {
-        const { className, label, onClick, children } = this.props;
+        const { className} = this.props; //, label, onClick, children
         const { customProps, className: modClassName } = getClassNameMap('button', className);
 
         return <RaisedButton

@@ -1,11 +1,5 @@
 import _ from 'lodash';
-import {
-    TRANSITION_VIEW,
-    TRANSITION_MODIFY,
-    TRANSITION_CREATE,
-    TRANSITION_EDIT,
-    TRANSITION_DELETE
-} from './constants'
+import React from 'react'
 
 export const findEntity = (universe, moduleName, entityName) => {
     let result = null;
@@ -23,29 +17,20 @@ export const findEntity = (universe, moduleName, entityName) => {
     return result;
 }
 
-export const isModify = (transition) => ['modify', 'edit'].includes(transition);
+export const getStatusNames = (addAll = false) => {
+    let res = []
+    if(addAll) res.push({id:'',name:'All states'})
+    res.push({id:'new', name:'New', color:"#bbae09"})
+    res.push({id:'inprogress',name:'In progress', color: "#9ED2DC"})
+    res.push({id:'closed',name:'Closed', color: "#387397"})
+    return res
+}
 
-export const isTransition = name => [
-    TRANSITION_EDIT,
-    TRANSITION_CREATE,
-    TRANSITION_MODIFY,
-    TRANSITION_DELETE
-].includes(name);
-
-export const isView = (transition) => ['main', 'view'].includes(transition);
-
-export const getTransitionName = (transition) => {
-    switch (transition) {
-        case 'modify':
-        case 'edit':
-            return TRANSITION_MODIFY;
-        case 'view':
-        case 'main':
-            return TRANSITION_VIEW;
-        case 'create':
-            return TRANSITION_CREATE;
-        case 'delete':
-            return TRANSITION_DELETE;
-        default:
-    }
+export const resolveStatusName = (id, resolveAsWidget = false) => {
+    const e = _.find(getStatusNames(), {id})
+    if (!e) return {}
+    if (!resolveAsWidget) return e.name
+    return (
+        <span style={{'background':e.color}}>{e.name}</span>
+    )
 }

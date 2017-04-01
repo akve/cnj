@@ -4,20 +4,23 @@
     "title":"Test task 1",
     "assignee":"pas",
     "status":"open",
-    "project":1
+    "project":1,
+    "lastupdate":"2017-03-30T20:51:15.433Z"
   },
   {
     "id": 2,
     "title":"Test task 2",
     "assignee":"volodarik",
     "status":"open",
-    "project":1
+    "project":1,
+    "lastupdate":"2017-03-30T20:53:15.433Z"
   },
   {
     "id": 3,
     "title":"Test task 3",
     "assignee":"pas",
     "status":"open",
-    "project":2
+    "project":2,
+    "lastupdate":"2017-03-30T20:52:15.433Z"
   }
 ]

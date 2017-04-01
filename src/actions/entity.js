@@ -19,6 +19,13 @@ export const DELETE_ENTITY_SUCCESS = 'DELETE_ENTITY_SUCCESS'
 export const DELETE_ENTITY_FAILURE = 'DELETE_ENTITY_FAILURE'
 export const UPDATE_LAST_ENTITY = 'UPDATE_LAST_ENTITY'
 
+
+export const NEW_MESSAGE_REQUEST = 'NEW_MESSAGE_REQUEST'
+export const NEW_MESSAGE_SUCCESS = 'NEW_MESSAGE_SUCCESS'
+export const NEW_MESSAGE_FAILURE = 'NEW_MESSAGE_FAILURE'
+
+
+
 export function calcStoreKey({entityName, id}) {
     if (!entityName || !id) {
         console.error('Invalid data');
@@ -128,4 +135,17 @@ export function deleteEntity(data, keyEntity, transition) {
             types: [ DELETE_ENTITY_REQUEST, DELETE_ENTITY_SUCCESS, DELETE_ENTITY_FAILURE ]
         }
     }
+}
+
+export function messageSubmit(taskId, message) {
+
+    return {
+        [CALL_API]: {
+            body : message,
+            endpoint: 'message/'+taskId,
+            entity: taskId,
+            method: "POST",
+            types: [ NEW_MESSAGE_REQUEST, NEW_MESSAGE_SUCCESS, NEW_MESSAGE_FAILURE ]
+        }
+    };
 }

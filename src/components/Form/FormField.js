@@ -85,7 +85,7 @@ export default class FormField extends Component {
     }
 
     renderCheckbox() {
-        const { type, value } = this.props;
+        //const { type, value } = this.props;
         const dynamicProps = {};
 
         Object.assign(dynamicProps, {
@@ -109,17 +109,14 @@ export default class FormField extends Component {
         const {
             name: id,
             value,
-            onChange,
             data,
             renderItem,
             disabled,
-            required,
             defaultTitle,
             autoComplete,
             valueField,
             textField,
-            floatingLabelText,
-            filter
+            floatingLabelText
         } = this.props;
         //if (this.props.name == "lookup-warehouse" ) debugger
         const customProps = { id, disabled, value : _.isObject(value) ? value[valueField] : value, floatingLabelText, hintStyle:{'color':'#FF0000'} };
@@ -158,13 +155,7 @@ export default class FormField extends Component {
 
     renderAutoComplete() {
         const {
-            name: id,
-            value,
-            onChange,
             data,
-            disabled,
-            defaultTitle,
-            autoComplete,
             defaultValue,
             valueField,
             textField,
